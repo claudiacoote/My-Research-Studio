@@ -1,3 +1,4 @@
+import { buildResearchSignals } from "./signals";
 import { buildMarketingOpportunities } from "./marketing";
 import type { ResearchInput, ResearchResult, ProgressEvent, Opportunity } from "../types/research";
 import { understandBrand } from "./themes";
@@ -37,10 +38,13 @@ export async function research(input:ResearchInput,key?:string,progress:(e:Progr
       generationMethod:"Rule-based theme expansion followed by two OpenAlex searches per theme. Papers are screened for theme and topic overlap in their title, abstract, or topics. One question is proposed per distinct evidence cluster. Findings are not inferred from titles. No language model was used."});
   }
   opportunities.sort((a,b)=>b.paperCount-a.paperCount);
+  const researchSignals=buildResearchSignals(opportunities,papers);
   const marketingOpportunities=buildMarketingOpportunities(opportunities,papers,input);
+  for(const o of opportunities)o.researchSignalIds=researchSignals.filter(s=>s.paperIds.some(id=>o.papers.some(p=>p.id===id))).map(s=>s.id);
+  for(const o of marketingOpportunities)o.researchSignalIds=researchSignals.filter(s=>s.paperIds.some(id=>o.supportingWorkIds.includes(id))).map(s=>s.id);
   progress({stage:5,message:`Creating ${opportunities.length} content and ${marketingOpportunities.length} marketing opportunities…`});
   if(opportunities.length<input.ideaCount)warnings.push(`Found ${opportunities.length} distinct supported opportunities; results were not padded to ${input.ideaCount}.`);
-  return {themes:strategy.themes.map(t=>t.name),opportunities,marketingOpportunities,warnings:[...new Set(warnings)],
+  return {themes:strategy.themes.map(t=>t.name),opportunities,marketingOpportunities,researchSignals,warnings:[...new Set(warnings)],
     adjacentSearches:strategy.themes.filter(t=>!opportunities.some(o=>o.theme===t.name)).map(t=>`${t.anchor} ${t.terms[0]}`).slice(0,4),
     metadata:{papersSearched:batches.length,uniquePapers:papers.length,queriesRun:completed,queriesSucceeded,
       completedAt:new Date().toISOString(),method:"OpenAlex + deterministic evidence-first engine",requestedIdeas:input.ideaCount,

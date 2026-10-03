@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 export type Discovery = "contentIdeas" | "marketingOpportunities" | "researchSignals";
 export const defaultDiscovery:Discovery[]=["contentIdeas","marketingOpportunities"];
-const discoveries:[Discovery,string,string][]=[["contentIdeas","Content ideas","Topics, angles and thought-leadership opportunities."],["marketingOpportunities","Marketing opportunities","Campaigns, positioning, customer education and messaging."],["researchSignals","Research signals","Themes and research attention in my retrieved sample."]];
+const discoveries:[Discovery,string,string][]=[["contentIdeas","Content ideas","Topics, angles and thought-leadership opportunities."],["marketingOpportunities","Marketing opportunities","Campaigns, positioning, customer education and messaging."],["researchSignals","Research signals","Patterns, shifts, opportunities and risks emerging across the research."]];
 export const initialInput:ResearchInput={brief:"",industry:"auto",audience:"",ideaCount:10,yearRange:10,minCitations:0,openAccessOnly:false,includeReviews:true,includeFoundational:false};
 const presets=[
  {name:"Sleep & recovery",industry:"health",brief:"We sell sleep and recovery products. Our audience wants practical, science-backed advice for improving sleep quality and feeling more rested."},
