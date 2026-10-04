@@ -1,12 +1,12 @@
-import type { Paper, Theme, Strength } from "../types/research";
-export function relevance(p:Paper,t:Theme):number {
+import type { Paper, ResearchQuestion, Strength } from "../types/research";
+export function relevance(p:Paper,t:ResearchQuestion):number {
   const title=p.title.toLowerCase(),text=(p.title+" "+(p.abstract||"")+" "+p.topics.join(" ")).toLowerCase();
   const anchor=t.anchor.split(" ").filter(x=>x.length>2);
-  const anchorMatches=anchor.some(x=>text.includes(x));const themeMatches=t.terms.filter(x=>text.includes(x.toLowerCase()));
-  if(!anchorMatches||!themeMatches.length)return 0;
-  const direct=themeMatches.some(x=>title.includes(x.toLowerCase()))&&anchor.some(x=>title.includes(x));
+  const anchorMatches=anchor.some(x=>text.includes(x));const termMatches=t.terms.filter(x=>text.includes(x.toLowerCase()));
+  if(!anchorMatches||!termMatches.length)return 0;
+  const direct=termMatches.some(x=>title.includes(x.toLowerCase()))&&anchor.some(x=>title.includes(x));
   const recent=p.year?Math.max(0,1-(new Date().getUTCFullYear()-p.year)/20):0;
-  return (direct?60:30)+Math.min(12,themeMatches.length*4)+(p.abstract?8:0)+recent*5+
+  return (direct?60:30)+Math.min(12,termMatches.length*4)+(p.abstract?8:0)+recent*5+
     Math.min(4,Math.log1p(p.citedByCount)/3)+Math.min(3,Math.log1p(p.relevanceScore))+(p.studyType.includes("review")||p.studyType==="Meta-analysis"?3:0);
 }
 export function classifyEvidence(papers:Paper[]):{strength:Strength;reason:string} {

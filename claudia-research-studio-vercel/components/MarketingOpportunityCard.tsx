@@ -2,9 +2,9 @@ import { BookOpen, Megaphone } from "lucide-react";
 import type { MarketingOpportunity } from "@/types/research";
 import { EvidenceBadge } from "./EvidenceBadge";
 export function MarketingOpportunityCard({opportunity:o,onPapers}:{opportunity:MarketingOpportunity;onPapers:(o:MarketingOpportunity)=>void}){
- return <article className="opportunity marketing-card"><div className="card-top"><span className="theme-label"><Megaphone size={14}/> {o.theme}</span><EvidenceBadge strength={o.evidenceStrength}/></div>
+ return <article className="opportunity marketing-card"><div className="card-top"><span className="card-eyebrow"><Megaphone size={14}/> Research-led proposal</span><EvidenceBadge strength={o.evidenceStrength}/></div>
  <h3>{o.title}</h3>
- <div className="reasoning-step"><span className="number">1</span><div><h4>What the research indicates</h4><p>{o.researchTheme}</p><p className="small muted">{o.evidenceSummary}</p></div></div>
+ <div className="reasoning-step"><span className="number">1</span><div><h4>What the research indicates</h4><p>{o.researchContext}</p><p className="small muted">{o.evidenceSummary}</p></div></div>
  <div className="reasoning-step"><span className="number">2</span><div><h4>My marketing opportunity</h4><p>{o.marketingOpportunity}</p></div></div>
  <div className="reasoning-step"><span className="number">3</span><div><h4>Why my audience may care</h4><p>{o.audienceImplication}</p><span className="interpretation-label">My interpretation · not a measured audience finding</span></div></div>
  <div className="card-section activations"><h4>Ways to activate</h4><ul>{o.suggestedActivations.map(a=><li key={a}>{a}</li>)}</ul></div>

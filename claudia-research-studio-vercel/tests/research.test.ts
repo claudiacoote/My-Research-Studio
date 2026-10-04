@@ -110,7 +110,7 @@ test("marketing signals come only from retrieved papers, with no invented moment
  assert.equal(researchSignals([]).yearRange,null);
 });
 test("marketing opportunities reject source IDs outside the retrieved registry",()=>{
- const content: import("../types/research").Opportunity={id:"x",theme:"Caffeine",question:"How does caffeine relate to sleep?",headline:"Caffeine and sleep",angle:"Educational",whyAudienceCares:"Sleep habits",evidenceSummary:"Retrieved research",evidenceStrength:"Emerging research",evidenceReason:"Small discovery sample",paperCount:1,suggestedKeywords:["sleep"],papers:[paper()],safetyFlags:[],queries:[],considered:1,generationMethod:"test"};
+ const content: import("../types/research").Opportunity={id:"x",question:"How does caffeine relate to sleep?",headline:"Caffeine and sleep",angle:"Educational",whyAudienceCares:"Sleep habits",evidenceSummary:"Retrieved research",evidenceStrength:"Emerging research",evidenceReason:"Small discovery sample",paperCount:1,suggestedKeywords:["sleep","caffeine"],papers:[paper()],safetyFlags:[],queries:[],considered:1,generationMethod:"test"};
  assert.throws(()=>buildMarketingOpportunities([content],[],inputSchema.parse({brief:"sleep brand"})),/outside the retrieved/);
  const output=buildMarketingOpportunities([content],[paper()],inputSchema.parse({brief:"sleep brand"}));assert.equal(output.length,1);assert.ok(output[0].suggestedActivations[0].includes("Coffee"));assert.ok(output[0].interpretationNotice.includes("does not prove"));
 });

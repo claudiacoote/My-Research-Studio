@@ -27,6 +27,6 @@ This edition uses next dev/build/start instead of Sites/Vinext. The research end
 The archive contains no API key. Uploading to GitHub alone does not deploy it; Vercel must import and build the repository. Deployment has not been performed on an account from this task.
 
 Rate limits and cache are per function instance. The tool remains a bounded discovery sample, not a systematic review. Marketing activations are proposals, not verified performance predictions.
-## Research signals
+## Research Signals v2
 
-Research signals identify reported patterns across supplied abstracts, independently of topic themes. The analyser supports twelve signal types, retains exact excerpts and citations, and keeps contradictory findings Mixed. It is a conservative rule-based analyser with no model calls or extra OpenAlex retrieval. Abstract-only analysis is capped at Moderate evidence and may return no signal when findings are missing or ambiguous. Read the full sources before making a claim.
+Topic classification and filters are removed. Signals use twelve strict machine-readable types, mapped to readable UI/export labels from one canonical definition. Cross-paper abstract patterns retain exact source excerpts and supportingPaperIds. No LLM or extra API call is used. Moderate is the maximum automatic abstract-only evidence strength; zero signals is valid. Review sources before making claims.
